@@ -3,8 +3,8 @@ import { useState } from 'react';
 export default function PlotGenerator() {
   const [A1, setA1] = useState(1);
   const [f1, setF1] = useState(1);
-  const [A2, setA2] = useState(1);
-  const [f2, setF2] = useState(1);
+  const [A2, setA2] = useState(0.8);
+  const [f2, setF2] = useState(1.2);
   const [plotUrl, setPlotUrl] = useState(null);
   const [loading, setLoading] = useState(false);
 
