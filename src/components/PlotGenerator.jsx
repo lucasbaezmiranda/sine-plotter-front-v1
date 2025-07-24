@@ -59,15 +59,19 @@ export default function PlotGenerator() {
 
     {/* Imagen del gráfico */}
     {plotUrl && (
-      <div style={{ flexGrow: 1 }}>
-        <h3>Resultado</h3>
-        <img
-          src={plotUrl}
-          alt="Gráfico generado"
-          style={{ width: '100%', maxWidth: '800px', border: '1px solid #888', borderRadius: '4px' }}
-        />
-      </div>
-    )}
+  <div style={{ flexGrow: 1 }}>
+    <h3>Resultado</h3>
+    <img
+      src={plotUrl}
+      alt="Gráfico generado"
+      style={{ width: '100%', maxWidth: '800px', border: '1px solid #888', borderRadius: '4px' }}
+    />
+    <div style={{ marginTop: '1rem' }}>
+      <p>Si no se muestra el gráfico, podés abrirlo directamente <a href={plotUrl} target="_blank" rel="noopener noreferrer">tocando este enlace</a>.</p>
+    </div>
+  </div>
+)}
+
   </div>
 );
 
