@@ -12,7 +12,7 @@ export default function PlotGenerator() {
     setLoading(true);
     setPlotUrl(null);
     try {
-      const res = await fetch('https://todo-back-5-env.eba-cnzsv9hp.us-east-1.elasticbeanstalk.com/plot', {
+      const res = await fetch('https://sine-plotter-v1-env.eba-vtqwpaw5.us-east-1.elasticbeanstalk.com/plot', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ A1, f1, A2, f2 })
