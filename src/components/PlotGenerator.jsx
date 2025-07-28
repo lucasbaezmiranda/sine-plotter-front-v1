@@ -37,7 +37,7 @@ export default function PlotGenerator() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': import.meta.env.VITE_API_KEY
+          'x-api-key': "NZSoiO2rSQ6owKgHDIpgF4Zfp1MBsFEU1iSImfHX"
         },
         body: JSON.stringify({ funciones: functions })
       });
