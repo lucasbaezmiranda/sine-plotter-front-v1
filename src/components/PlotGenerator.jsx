@@ -2,11 +2,10 @@ import { useState } from 'react';
 
 export default function PlotGenerator() {
   const [functions, setFunctions] = useState([
-  { tipo: 'sin', amplitud: 1, frecuencia: 1, fase: 0 },
-  { tipo: 'sin', amplitud: 0.8, frecuencia: 1.5, fase: 45 }
+    { tipo: 'sin', amplitud: 1, frecuencia: 1, fase: 0 },
+    { tipo: 'sin', amplitud: 0.8, frecuencia: 1.5, fase: 45 }
   ]);
-  const [x, setX] = useState(null);
-  const [y, setY] = useState(null);
+  const [plotUrl, setPlotUrl] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const handleFunctionChange = (index, field, value) => {
@@ -30,8 +29,7 @@ export default function PlotGenerator() {
 
   const handlePlot = async () => {
     setLoading(true);
-    setX(null);
-    setY(null);
+    setPlotUrl(null);
     try {
       const res = await fetch('https://ob99zx277a.execute-api.us-east-1.amazonaws.com/v2/plot', {
         method: 'POST',
@@ -43,11 +41,10 @@ export default function PlotGenerator() {
       });
       const data = await res.json();
       const body = data?.body ? JSON.parse(data.body) : data;
-      setX(body.x);
-      setY(body.y);
+      setPlotUrl(body.url);
     } catch (err) {
       console.error("Error al generar gráfico:", err);
-      alert("Error al generar gráfico.-");
+      alert("Error al generar gráfico.");
     } finally {
       setLoading(false);
     }
@@ -67,7 +64,6 @@ export default function PlotGenerator() {
             gap: '1rem',
             alignItems: 'center'
           }}>
-
           <label>
             Tipo:
             <select value={func.tipo} onChange={e => handleFunctionChange(idx, 'tipo', e.target.value)}>
@@ -99,12 +95,11 @@ export default function PlotGenerator() {
         {loading ? 'Generando...' : 'Graficar'}
       </button>
 
-      {x && y && (
+      {plotUrl && (
         <div style={{ marginTop: '2rem' }}>
           <h3>Resultado</h3>
-          <pre>{`x: [${x.slice(0, 5).join(', ')} ...] (${x.length} puntos)`}</pre>
-          <pre>{`y: [${y.slice(0, 5).join(', ')} ...] (${y.length} puntos)`}</pre>
-          {/* Acá luego podés insertar ChartPlot si querés el gráfico directamente */}
+          <img src={plotUrl} alt="Gráfico generado" style={{ maxWidth: '100%' }} />
+          <p>Link directo: <a href={plotUrl} target="_blank" rel="noopener noreferrer">{plotUrl}</a></p>
         </div>
       )}
     </div>
