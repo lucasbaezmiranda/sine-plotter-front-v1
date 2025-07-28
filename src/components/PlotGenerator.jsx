@@ -57,7 +57,17 @@ export default function PlotGenerator() {
     <div style={{ padding: '2rem' }}>
       <h2>Funciones a Graficar</h2>
       {functions.map((func, idx) => (
-        <div key={idx} style={{ border: '1px solid #ccc', padding: '1rem', marginBottom: '1rem', borderRadius: '8px' }}>
+        <div key={idx} style={{ 
+            border: '1px solid #ccc', 
+            padding: '1rem', 
+            marginBottom: '1rem', 
+            borderRadius: '8px',
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '1rem',
+            alignItems: 'center'
+          }}>
+
           <label>
             Tipo:
             <select value={func.tipo} onChange={e => handleFunctionChange(idx, 'tipo', e.target.value)}>
