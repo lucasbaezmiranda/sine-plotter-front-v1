@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 export default function PlotGenerator() {
   const [functions, setFunctions] = useState([
-    { tipo: 'sin', amplitud: 1, frecuencia: 1, fase: 0 },
-    { tipo: 'sin', amplitud: 0.8, frecuencia: 1.5, fase: 45 }
+    { tipo: 'sin', amplitud: 1, frecuencia: 10, fase: 0 },
+    { tipo: 'sin', amplitud: 1, frecuencia: 11, fase: 0 }
   ]);
   const [plotUrl, setPlotUrl] = useState(null);
   const [loading, setLoading] = useState(false);
