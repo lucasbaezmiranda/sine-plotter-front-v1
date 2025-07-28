@@ -18,8 +18,7 @@ export default function PlotGenerator() {
         body: JSON.stringify({ A1, f1, A2, f2 })
       });
       const data = await res.json();
-      // La API responde { body: '{"url": "..."}' }, hay que parsear ese body:
-      const body = typeof data.body === "string" ? JSON.parse(data.body) : data.body;
+      const body = data?.body ? JSON.parse(data.body) : data;
       setPlotUrl(body.url);
     } catch (err) {
       alert("Error al generar gráfico. Ver consola.");
@@ -29,53 +28,52 @@ export default function PlotGenerator() {
     }
   };
 
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', gap: '2rem', padding: '2rem', flexWrap: 'wrap' }}>
+      
+      {/* Formulario */}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handlePlot();
+        }}
+        style={{ width: '300px', border: '1px solid #ccc', borderRadius: '8px', padding: '1rem' }}
+      >
+        <h2>Parámetros de la función</h2>
+        <div style={{ display: 'grid', gap: '0.5rem', marginBottom: '1rem' }}>
+          <label>Amplitud 1:
+            <input type="number" step="0.1" value={A1} onChange={e => setA1(Number(e.target.value))} />
+          </label>
+          <label>Frecuencia 1:
+            <input type="number" step="0.1" value={f1} onChange={e => setF1(Number(e.target.value))} />
+          </label>
+          <label>Amplitud 2:
+            <input type="number" step="0.1" value={A2} onChange={e => setA2(Number(e.target.value))} />
+          </label>
+          <label>Frecuencia 2:
+            <input type="number" step="0.1" value={f2} onChange={e => setF2(Number(e.target.value))} />
+          </label>
+        </div>
+        <button type="submit" disabled={loading} style={{ width: '100%' }}>
+          {loading ? 'Generando...' : 'Graficar'}
+        </button>
+      </form>
 
-    return (
-  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', gap: '2rem', padding: '2rem', flexWrap: 'wrap' }}>
-    {/* Formulario */}
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        handlePlot();
-      }}
-      style={{ width: '300px', border: '1px solid #ccc', borderRadius: '8px', padding: '1rem' }}
-    >
-      <h2>Parámetros de la función</h2>
-      <div style={{ display: 'grid', gap: '0.5rem', marginBottom: '1rem' }}>
-        <label>Amplitud 1:
-          <input type="number" step="0.1" value={A1} onChange={e => setA1(Number(e.target.value))} />
-        </label>
-        <label>Frecuencia 1:
-          <input type="number" step="0.1" value={f1} onChange={e => setF1(Number(e.target.value))} />
-        </label>
-        <label>Amplitud 2:
-          <input type="number" step="0.1" value={A2} onChange={e => setA2(Number(e.target.value))} />
-        </label>
-        <label>Frecuencia 2:
-          <input type="number" step="0.1" value={f2} onChange={e => setF2(Number(e.target.value))} />
-        </label>
-      </div>
-      <button type="submit" disabled={loading}>
-        {loading ? 'Generando...' : 'Graficar'}
-      </button>
-    </form>
+      {/* Imagen del gráfico */}
+      {plotUrl && (
+        <div style={{ flexGrow: 1 }}>
+          <h3>Resultado</h3>
+          <img
+            src={plotUrl}
+            alt="Gráfico generado"
+            style={{ width: '100%', maxWidth: '800px', border: '1px solid #888', borderRadius: '4px' }}
+          />
+          <div style={{ marginTop: '1rem' }}>
+            <p>Si no se muestra el gráfico, podés abrirlo directamente <a href={plotUrl} target="_blank" rel="noopener noreferrer">tocando este enlace</a>.</p>
+          </div>
+        </div>
+      )}
 
-    {/* Imagen del gráfico */}
-    {plotUrl && (
-  <div style={{ flexGrow: 1 }}>
-    <h3>Resultado</h3>
-    <img
-      src={plotUrl}
-      alt="Gráfico generado"
-      style={{ width: '100%', maxWidth: '800px', border: '1px solid #888', borderRadius: '4px' }}
-    />
-    <div style={{ marginTop: '1rem' }}>
-      <p>Si no se muestra el gráfico, podés abrirlo directamente <a href={plotUrl} target="_blank" rel="noopener noreferrer">tocando este enlace</a>.</p>
     </div>
-  </div>
-)}
-
-  </div>
-);
-
-  }
+  );
+}
