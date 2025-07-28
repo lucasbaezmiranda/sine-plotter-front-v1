@@ -12,13 +12,15 @@ export default function PlotGenerator() {
     setLoading(true);
     setPlotUrl(null);
     try {
-      const res = await fetch('https://sine-plot-v2-env.eba-prdbvgm7.us-east-1.elasticbeanstalk.com/plot', {
+      const res = await fetch('https://ob99zx277a.execute-api.us-east-1.amazonaws.com/v1/plot', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ A1, f1, A2, f2 })
       });
       const data = await res.json();
-      setPlotUrl(data.url);
+      // La API responde { body: '{"url": "..."}' }, hay que parsear ese body:
+      const body = typeof data.body === "string" ? JSON.parse(data.body) : data.body;
+      setPlotUrl(body.url);
     } catch (err) {
       alert("Error al generar gráfico. Ver consola.");
       console.error("Error al generar gráfico:", err);
@@ -26,6 +28,7 @@ export default function PlotGenerator() {
       setLoading(false);
     }
   };
+
 
     return (
   <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', gap: '2rem', padding: '2rem', flexWrap: 'wrap' }}>
