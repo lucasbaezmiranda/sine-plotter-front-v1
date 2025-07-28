@@ -47,7 +47,7 @@ export default function PlotGenerator() {
       setY(body.y);
     } catch (err) {
       console.error("Error al generar gráfico:", err);
-      alert("Error al generar gráfico");
+      alert("Error al generar gráfico.-");
     } finally {
       setLoading(false);
     }
