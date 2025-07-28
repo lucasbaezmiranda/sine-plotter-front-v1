@@ -14,7 +14,9 @@ export default function PlotGenerator() {
     try {
       const res = await fetch('https://ob99zx277a.execute-api.us-east-1.amazonaws.com/v2/plot', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json',
+            'x-api-key': 'NZSoiO2rSQ6owKgHDIpgF4Zfp1MBsFEU1iSImfHX'
+        },
         body: JSON.stringify({ A1, f1, A2, f2 })
       });
       const data = await res.json();
