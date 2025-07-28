@@ -12,7 +12,7 @@ export default function PlotGenerator() {
     setLoading(true);
     setPlotUrl(null);
     try {
-      const res = await fetch('https://ob99zx277a.execute-api.us-east-1.amazonaws.com/v2/plott', {
+      const res = await fetch('https://ob99zx277a.execute-api.us-east-1.amazonaws.com/v2/plot', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ A1, f1, A2, f2 })
